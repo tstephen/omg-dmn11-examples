@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Definitions id="LoanOriginationModel" xmlns="http://www.omg.org/spec/DMN/20130901">
+	<description>Implements decision logic from Figure 78 (Application risk
+		score model)</description>
+	<ItemDefinition name="Applicant Data" id="applicantData">
+		<typeDefinition>string</typeDefinition>
+	</ItemDefinition>
+	<ItemDefinition name="Bureau Data" id="bureauData">
+		<typeDefinition>string</typeDefinition>
+	</ItemDefinition>
+	<InputData id="Applicant data" />
+	<InputData id="Requested product" />
+	<InputData id="Supporting documents" />
+	<InputData id="Bureau data" />
+	<KnowledgeSource id="Risk Manager" />
+	<KnowledgeSource id="Analytics" />
+	<KnowledgeSource id="Product specification" />
+	<KnowledgeSource id="Credit officer" />
+	<KnowledgeSource id="Affordability Spreadsheet" />
+	<BusinessKnowledgeModel id="Bureau call type table">
+		<authorityRequirement>
+			<requiredAuthority href="Risk Manager" />
+		</authorityRequirement>
+	</BusinessKnowledgeModel>
+	<BusinessKnowledgeModel id="Pre-bureau risk category table" />
+	<BusinessKnowledgeModel id="Application risk score model">
+		<authorityRequirement>
+			<requiredAuthority href="Analytics" />
+		</authorityRequirement>
+	</BusinessKnowledgeModel>
+	<BusinessKnowledgeModel id="Credit contingency factor table">
+		<authorityRequirement>
+			<requiredAuthority href="Risk Manager" />
+		</authorityRequirement>
+	</BusinessKnowledgeModel>
+	<BusinessKnowledgeModel id="Eligibility rules">
+		<authorityRequirement>
+			<requiredAuthority href="Product specification" />
+		</authorityRequirement>
+	</BusinessKnowledgeModel>
+	<BusinessKnowledgeModel id="Routing rules" />
+	<BusinessKnowledgeModel id="Installment calculation" />
+	<BusinessKnowledgeModel id="Post-bureau risk category table">
+		<authorityRequirement>
+			<requiredAuthority href="Risk Manager" />
+		</authorityRequirement>
+	</BusinessKnowledgeModel>
+	<Decision id="Bureau call type">
+		<informationRequirement>
+			<requiredDecision href="Strategy" />
+		</informationRequirement>
+		<knowledgeRequirement>
+			<requiredKnowledge href="Bureau call type table" />
+		</knowledgeRequirement>
+	</Decision>
+	<Decision id="Strategy" />
+	<Decision id="Eligibility">
+		<informationRequirement>
+			<requiredDecision href="Strategy" />
+		</informationRequirement>
+		<knowledgeRequirement>
+			<requiredKnowledge href="Eligibility rules" />
+		</knowledgeRequirement>
+	</Decision>
+	<Decision id="Pre-bureau risk category">
+		<informationRequirement>
+			<requiredDecision href="Eligibility" />
+		</informationRequirement>
+		<informationRequirement>
+			<requiredDecision href="Bureau call type" />
+		</informationRequirement>
+		<informationRequirement>
+			<requiredDecision href="Pre-bureau affordability" />
+		</informationRequirement>
+		<knowledgeRequirement>
+			<requiredKnowledge href="Pre-bureau risk category table" />
+		</knowledgeRequirement>
+	</Decision>
+	<Decision id="Application risk score">
+		<informationRequirement>
+			<requiredDecision href="Pre-bureau risk category" />
+		</informationRequirement>
+		<knowledgeRequirement>
+			<requiredKnowledge href="Application risk score model" />
+		</knowledgeRequirement>
+	</Decision>
+	<Decision id="Pre-bureau affordability">
+		<informationRequirement>
+			<requiredDecision href="Pre-bureau risk category" />
+		</informationRequirement>
+		<knowledgeRequirement>
+			<requiredKnowledge href="Affordability calculation" />
+		</knowledgeRequirement>
+	</Decision>
+	<Decision id="Post-bureau affordability">
+		<informationRequirement>
+			<requiredDecision href="Routing" />
+		</informationRequirement>
+		<knowledgeRequirement>
+			<requiredKnowledge href="Affordability calculation" />
+		</knowledgeRequirement>
+	</Decision>
+	<Decision id="Required monthly installment">
+		<informationRequirement>
+			<requiredDecision href="Pre-bureau affordability" />
+		</informationRequirement>
+		<informationRequirement>
+			<requiredDecision href="Post-bureau affordability" />
+		</informationRequirement>
+		<knowledgeRequirement>
+			<requiredKnowledge href="Installment calculation" />
+		</knowledgeRequirement>
+	</Decision>
+	<Decision id="Post-bureau risk category">
+		<informationRequirement>
+			<requiredDecision href="Routing" />
+		</informationRequirement>
+		<informationRequirement>
+			<requiredDecision href="Post-bureau affordability" />
+		</informationRequirement>
+		<authorityRequirement>
+			<requiredAuthority href="Risk Manager" />
+		</authorityRequirement>
+	</Decision>
+	<Decision id="Routing">
+		<informationRequirement>
+			<requiredDecision href="Adjudication" />
+		</informationRequirement>
+	</Decision>
+	<Decision id="Adjudication">
+		<informationRequirement>
+			<requiredInput href="Supporting documents" />
+		</informationRequirement>
+		<authorityRequirement>
+			<requiredAuthority href="Credit officer" />
+		</authorityRequirement>
+	</Decision>
+</Definitions>
