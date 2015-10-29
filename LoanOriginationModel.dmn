@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Definitions id="LoanOriginationModel" xmlns="http://www.omg.org/spec/DMN/20130901">
-	<description>Implements decision logic from Figure 78 (Application risk
-		score model)</description>
+	<description>Implements model from chapter 11 of spec</description>
 	<ItemDefinition name="Applicant Data" id="applicantData">
 		<typeDefinition>string</typeDefinition>
 	</ItemDefinition>
@@ -53,7 +52,57 @@
 			<requiredKnowledge href="Bureau call type table" />
 		</knowledgeRequirement>
 	</Decision>
-	<Decision id="Strategy" />
+	<Decision id="Strategy">
+		<DecisionTable hitPolicy="UNIQUE" preferedOrientation="Rule-as-Column"
+			id="1_dt">
+			<input name="eligibility">
+				<inputExpression>
+					<text>eligibility</text>
+				</inputExpression>
+			</input>
+			<input name="bureauCallType">
+				<inputExpression>
+					<text>bureauCallType</text>
+				</inputExpression>
+			</input>
+			<output name="Strategy">
+				<outputDefinition href="#strategy" />
+			</output>
+			<rule>
+				<inputEntry>
+					<text>"INELIGIBLE"</text>
+				</inputEntry>
+				<inputEntry>
+					<text>""</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"DECLINE"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>"ELIGIBLE"</text>
+				</inputEntry>
+				<inputEntry>
+					<text>"FULL"</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"BUREAU"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>"ELIGIBLE"</text>
+				</inputEntry>
+				<inputEntry>
+					<text>"NONE"</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"THROUGH"</text>
+				</outputEntry>
+			</rule>
+		</DecisionTable>
+	</Decision>
 	<Decision id="Eligibility">
 		<informationRequirement>
 			<requiredDecision href="Strategy" />
@@ -61,6 +110,83 @@
 		<knowledgeRequirement>
 			<requiredKnowledge href="Eligibility rules" />
 		</knowledgeRequirement>
+		<DecisionTable hitPolicy="PRIORITY" preferedOrientation="Rule-as-Column"
+			id="73659a19-9fb9-4e95-b8c7-ad1628b35b57_dt">
+			<input name="Pre-Bureau Risk Category">
+				<inputExpression>
+					<text>Pre-Bureau Risk Category</text>
+				</inputExpression>
+			</input>
+			<input name="Pre-Bureau Affordability">
+				<inputExpression>
+					<text>Pre-Bureau Affordability</text>
+				</inputExpression>
+			</input>
+			<input name="Age">
+				<inputExpression>
+					<text>Age</text>
+				</inputExpression>
+			</input>
+			<output name="Eligibility">
+				<outputDefinition href="#eligibility" />
+			</output>
+			<rule>
+				<inputEntry>
+					<text>"DECLINE"</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"INELIGIBLE"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"INELIGIBLE"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;18</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"INELIGIBLE"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"ELIGIBLE"</text>
+				</outputEntry>
+			</rule>
+		</DecisionTable>
 	</Decision>
 	<Decision id="Pre-bureau risk category">
 		<informationRequirement>
@@ -75,6 +201,110 @@
 		<knowledgeRequirement>
 			<requiredKnowledge href="Pre-bureau risk category table" />
 		</knowledgeRequirement>
+		<DecisionTable hitPolicy="UNIQUE" preferedOrientation="Rule-as-Column"
+			id="3983d40b-a7f2-4902-a002-623c4467be98_dt">
+			<input name="Existing Customer">
+				<inputExpression>
+					<text>Existing Customer</text>
+				</inputExpression>
+			</input>
+			<input name="Application Risk Score">
+				<inputExpression>
+					<text>Application Risk Score</text>
+				</inputExpression>
+			</input>
+			<output name="Pre-Bureau Risk Category">
+				<outputDefinition href="#pre-Bureau Risk Category" />
+			</output>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;100</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"HIGH"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[100-120)</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"MEDIUM"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[120-130]</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"LOW"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;130</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"VERY LOW"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;80</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"DECLINE"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[80..90)</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"HIGH"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[90..110]</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"MEDIUM"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;110</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"LOW"</text>
+				</outputEntry>
+			</rule>
+		</DecisionTable>
 	</Decision>
 	<Decision id="Application risk score">
 		<informationRequirement>
@@ -83,6 +313,202 @@
 		<knowledgeRequirement>
 			<requiredKnowledge href="Application risk score model" />
 		</knowledgeRequirement>
+		<DecisionTable hitPolicy="COLLECT" preferedOrientation="Rule-as-Row"
+			id="Application risk score model">
+			<input>
+				<inputExpression id="dt78_i0_ie">
+					<text>Age</text>
+				</inputExpression>
+				<inputValue id="dt78_i0_iv0">
+					<text>[18..120]</text>
+				</inputValue>
+			</input>
+			<input>
+				<inputExpression id="dt78_i1_ie">
+					<text>Marital Status</text>
+				</inputExpression>
+				<inputValue id="dt78_i1_iv0">
+					<text>S</text>
+				</inputValue>
+				<inputValue id="dt78_i1_iv1">
+					<text>M</text>
+				</inputValue>
+			</input>
+			<input>
+				<inputExpression id="dt78_i2_ie">
+					<text>Employment Status</text>
+				</inputExpression>
+				<inputValue id="dt78_i2_iv0">
+					<text>UNEMPLOYED</text>
+				</inputValue>
+				<inputValue id="dt78_i2_iv1">
+					<text>EMPLOYED</text>
+				</inputValue>
+				<inputValue id="dt78_i2_iv2">
+					<text>SELF-EMPLOYED</text>
+				</inputValue>
+				<inputValue id="dt78_i2_iv3">
+					<text>STUDENT</text>
+				</inputValue>
+			</input>
+			<output id="27002_dt_o1" name="Partial score">
+				<outputDefinition href="#TODO" />
+			</output>
+			<rule>
+				<inputEntry>
+					<text>[18..21]</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>32</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>[22..25]</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>35</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>[26..35]</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>40</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>[36..49]</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>43</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>&gt;=50</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>48</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>S</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>25</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>M</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>45</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>UNEMPLOYED</text>
+				</inputEntry>
+				<outputEntry>
+					<text>15</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>STUDENT</text>
+				</inputEntry>
+				<outputEntry>
+					<text>18</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>EMPLOYED</text>
+				</inputEntry>
+				<outputEntry>
+					<text>45</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<inputEntry>
+					<text>SELF-EMPLOYED</text>
+				</inputEntry>
+				<outputEntry>
+					<text>36</text>
+				</outputEntry>
+			</rule>
+		</DecisionTable>
 	</Decision>
 	<Decision id="Pre-bureau affordability">
 		<informationRequirement>
@@ -99,6 +525,209 @@
 		<knowledgeRequirement>
 			<requiredKnowledge href="Affordability calculation" />
 		</knowledgeRequirement>
+		<DecisionTable hitPolicy="UNIQUE" preferedOrientation="Rule-as-Row"
+			id="Routing rules">
+			<input>
+				<inputExpression>
+					<text>Existing Customer</text>
+				</inputExpression>
+			</input>
+			<input>
+				<inputExpression>
+					<text>Application Risk Score</text>
+				</inputExpression>
+			</input>
+			<input>
+				<inputExpression>
+					<text>Credit Score</text>
+				</inputExpression>
+			</input>
+			<output name="Post Bureau Risk Category">
+				<outputDefinition href="#TODO" />
+			</output>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;120</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;590</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"HIGH"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;120</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[590..610]</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"MEDIUM"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;120</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;610</text>
+				</inputEntry>
+				<outputEntry>
+					<text>LOW</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[120..130]</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;600</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"HIGH"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[120..130]</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[600..625]</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"MEDIUM"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[120..130]</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;625</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"LOW"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>false</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;130</text>
+				</inputEntry>
+				<inputEntry>
+					<text>-</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"VERY LOW"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;=100</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;580</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"HIGH"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;=100</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[580.600]</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"MEDIUM"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;=100</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;600</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"LOW"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;100</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&lt;590</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"HIGH"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;100</text>
+				</inputEntry>
+				<inputEntry>
+					<text>[590..615]</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"MEDIUM"</text>
+				</outputEntry>
+			</rule>
+			<rule>
+				<inputEntry>
+					<text>true</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;100</text>
+				</inputEntry>
+				<inputEntry>
+					<text>&gt;615</text>
+				</inputEntry>
+				<outputEntry>
+					<text>"LOW"</text>
+				</outputEntry>
+			</rule>
+		</DecisionTable>
 	</Decision>
 	<Decision id="Required monthly installment">
 		<informationRequirement>
