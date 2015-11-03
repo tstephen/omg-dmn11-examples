@@ -112,7 +112,7 @@
 		id="bureauCallTypeTable_bkm">
 		<encapsulatedLogic>
 			<formalParameter typeRef="ns2:string" name="Pre-Bureau Risk Category"
-				id="bureauCallPreBureauRiskCategory_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row"
 				id="_72_dt">
 				<input id="_72PreBureauRiskCategory" label="Pre-Bureau Risk Category">
@@ -155,9 +155,9 @@
 		id="preBureauRiskCategoryTable_bkm">
 		<encapsulatedLogic>
 			<formalParameter typeRef="ns2:boolean" name="Existing Customer"
-				id="preBureauExistingCustomer_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<formalParameter typeRef="ns2:number" name="￼Application Risk Score"
-				id="preBureauApplicationRiskScore_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row"
 				id="_76_dt">
 				<input id="Existing_Customer" label="Existing Customer">
@@ -265,12 +265,12 @@
 	<businessKnowledgeModel name="Application risk score model"
 		id="applicationRiskScoreModel_bkm">
 		<encapsulatedLogic>
-			<formalParameter typeRef="ns2:number" name="Age" id="age"
+			<formalParameter typeRef="ns2:number" name="Age"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<formalParameter typeRef="ns2:string" name="MaritalStatus"
-				id="maritalStatus" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<formalParameter typeRef="ns2:string" name="Employment Status"
-				id="employmentStatus" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="COLLECT" aggregation="SUM"
 				preferredOrientation="Rule-as-Row" id="applicationRiskScoreModel_dt">
 				<input>
@@ -461,8 +461,8 @@
 	<businessKnowledgeModel name="Credit contingency factor table"
 		id="creditContingencyFactorTable_bkm">
 		<encapsulatedLogic>
-			<formalParameter typeRef="ns2:RiskCategory" name="Rick Category"
-				id="riskCategory_p" xmlns:ns2="http://www.omg.org/spec/DMN/examples/201xyyzz" />
+			<formalParameter typeRef="ns2:RiskCategory" name="Risk Category"
+				xmlns:ns2="http://www.omg.org/spec/DMN/examples/201xyyzz" />
 			<decisionTable hitPolicy="UNIQUE" id="creditContingencyFactor_dt">
 				<input>
 					<inputExpression>
@@ -532,7 +532,7 @@
 							<literalExpression>
 								<text>Risk Category</text>
 							</literalExpression>
-							<parameter href="#riskCategory_ii" />
+							<parameter name="Risk Category" />
 						</binding>
 					</invocation>
 				</contextEntry>
@@ -563,11 +563,11 @@
 		id="eligibilityRules_bkm">
 		<encapsulatedLogic>
 			<formalParameter typeRef="ns2:number" name="Pre-bureau affordability"
-				id="preBureauAffordability_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<formalParameter typeRef="ns2:string" name="Pre-Bureau Risk Category"
-				id="preBureauRiskCategory_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<formalParameter typeRef="ns2:number" name="Applicant data.Age"
-				id="applicantData.Age" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="PRIORITY"
 				preferredOrientation="Rule-as-Row" id="_74_dt">
 				<input id="Pre_Bureau_Risk_Category" label="Pre-Bureau Risk Category">
@@ -650,14 +650,14 @@
 	</businessKnowledgeModel>
 	<businessKnowledgeModel name="Routing rules" id="routingRules_bkm">
 		<encapsulatedLogic>
-			<formalParameter typeRef="ns2:boolean" name="Bureau data . Bankrupt"
-				id="routingRulesBankrupt_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="Bureau data . CreditScore"
-				id="routingRulesCreditScore_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="Post-bureau risk category"
-				id="routingRulesPostBureauRiskCategory_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="Post-bureau affordability"
-				id="routingRulesPostBureauAffordability_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+			<formalParameter typeRef="ns2:boolean" name="Bankrupt"
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+			<formalParameter typeRef="ns2:number" name="Crdit Score"
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+			<formalParameter typeRef="ns2:number" name="Post-Bureau Risk Category"
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+			<formalParameter typeRef="ns2:number" name="Post-Bureau Affordability"
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="PRIORITY"
 				preferredOrientation="Rule-as-Row" id="routingRules_dt">
 				<input>
@@ -780,19 +780,20 @@
 		id="installmentCalculation_bkm">
 		<encapsulatedLogic>
 			<formalParameter typeRef="ns2:string" name="Product Type"
-				id="productType_p" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="Rate" id="rate_p"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="Term" id="term_p"
+			<formalParameter typeRef="ns2:number" name="Rate"
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+			<formalParameter typeRef="ns2:number" name="Term"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<formalParameter typeRef="ns2:number" name="Amount"
-				id="amount_p" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<context>
 				<contextEntry>
 					<variable name="Monthly Fee" />
 					<literalExpression>
 						<text>if Product Type = "STANDARD LOAN" then 20.00
-							else if Product Type = "SPECIAL LOAN" then 25.00
+							else if Product
+							Type = "SPECIAL LOAN" then 25.00
 							else null
 						</text>
 					</literalExpression>
@@ -815,11 +816,11 @@
 		id="postBureauRiskCategoryTable_bkm">
 		<encapsulatedLogic>
 			<formalParameter typeRef="ns2:boolean" name="Existing Customer"
-				id="postBureauExistingCustomer_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="Bureau data . CreditScore"
-				id="postBureauCreditScore_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="￼Application Risk Score"
-				id="postBureauApplicationRiskScore_ii" xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+			<formalParameter typeRef="ns2:number" name="Application Risk Score"
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
+			<formalParameter typeRef="ns2:number" name="Credit Score"
+				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row"
 				id="postBureauRiskCategory_dt">
 				<input>
@@ -1045,14 +1046,15 @@
 				<literalExpression>
 					<text>Pre-Bureau Risk Category</text>
 				</literalExpression>
-				<parameter href="#preBureauRiskCategory_d" />
+				<parameter name="Pre-Bureau Risk Category" />
 			</binding>
 		</invocation>
 	</decision>
 	<decision name="Strategy" id="_70_d">
 		<description>The Strategy decision logic (Figure 70) defines a
 			complete, unique-hit decision table deriving Strategy from
-			Eligibility and Bureau Call Type.</description>
+			Eligibility and Bureau Call Type.
+		</description>
 		<question>Is credit bureau call required?</question>
 		<allowedAnswers>Yes: Bureau; No: Decline or Through</allowedAnswers>
 		<informationRequirement>
@@ -1132,19 +1134,19 @@
 				<literalExpression>
 					<text>ApplicantData.Age</text>
 				</literalExpression>
-				<parameter href="#applicantData.Age" />
+				<parameter name="Applicant data.Age" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Pre-bureau risk category</text>
 				</literalExpression>
-				<parameter href="#preBureauRiskCategory_ii" />
+				<parameter name="Pre-Bureau Risk Category" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Pre-bureau affordability</text>
 				</literalExpression>
-				<parameter href="#preBureauAffordability_ii" />
+				<parameter name="Pre-bureau affordability" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1164,19 +1166,19 @@
 				<literalExpression>
 					<text>Applicant data . Age</text>
 				</literalExpression>
-				<parameter href="#age" />
+				<parameter name="Age" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . MaritalStatus</text>
 				</literalExpression>
-				<parameter href="#maritalStatus" />
+				<parameter name="MaritalStatus" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . EmploymentStatus</text>
 				</literalExpression>
-				<parameter href="#employmentStatus" />
+				<parameter name="Employment Status" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1188,15 +1190,21 @@
 			<calledFunction>_76_dt</calledFunction>
 			<binding>
 				<literalExpression>
-					<text>Applicant data . ExistingCustomer</text>
+					<text>Applicant data . Age</text>
 				</literalExpression>
-				<parameter href="#preBureauExistingCustomer_ii" />
+				<parameter name="Age" />
 			</binding>
 			<binding>
 				<literalExpression>
-					<text>Application risk score</text>
+					<text>Applicant data . MaritalStatus</text>
 				</literalExpression>
-				<parameter href="#preBureauApplicationRiskScore_ii" />
+				<parameter name="Marital Status" />
+			</binding>
+			<binding>
+				<literalExpression>
+					<text>Applicant data . EmploymentStatus</text>
+				</literalExpression>
+				<parameter name="Employment Status" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1219,31 +1227,31 @@
 				<literalExpression>
 					<text>Applicant data . Monthly . Income</text>
 				</literalExpression>
-				<parameter href="#income_t" />
+				<parameter name="￼Monthly Income" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . Monthly . Repayments</text>
 				</literalExpression>
-				<parameter href="#repayments_t" />
+				<parameter name="￼Monthly Repayments" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . Monthly . Expenses</text>
 				</literalExpression>
-				<parameter href="#expenses_t" />
+				<parameter name="Monthly Expenses" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Pre-bureau risk category</text>
 				</literalExpression>
-				<parameter href="#riskCategory_t" />
+				<parameter name="￼Risk Category" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Required monthly installment</text>
 				</literalExpression>
-				<parameter href="#monthlyInstallment_t" />
+				<parameter name="￼Required Monthly Installment" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1257,31 +1265,31 @@
 				<literalExpression>
 					<text>Applicant data . Monthly . Income</text>
 				</literalExpression>
-				<parameter href="#income_t" />
+				<parameter name="￼Monthly Income" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . Monthly . Repayments</text>
 				</literalExpression>
-				<parameter href="#repayments_t" />
+				<parameter name="￼Monthly Repayments" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . Monthly . Expenses</text>
 				</literalExpression>
-				<parameter href="#expenses_t" />
+				<parameter name="Monthly Expenses" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Post-bureau risk category</text>
 				</literalExpression>
-				<parameter href="#riskCategory_t" />
+				<parameter name="￼Risk Category" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Required monthly installment</text>
 				</literalExpression>
-				<parameter href="#monthlyInstallment_t" />
+				<parameter name="￼Required Monthly Installment" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1298,25 +1306,25 @@
 				<literalExpression>
 					<text>Requested product . ProductType</text>
 				</literalExpression>
-				<parameter href="#productType" />
+				<parameter name="Product Type" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Requested product . Rate</text>
 				</literalExpression>
-				<parameter href="#rate" />
+				<parameter name="Rate" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Requested product . Term</text>
 				</literalExpression>
-				<parameter href="#term" />
+				<parameter name="Term" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Requested product . Amount</text>
 				</literalExpression>
-				<parameter href="#amount" />
+				<parameter name="Amount" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1339,19 +1347,19 @@
 				<literalExpression>
 					<text>Applicant data . ExistingCustomer</text>
 				</literalExpression>
-				<parameter href="#postBureauExistingCustomer_ii" />
+				<parameter name="Existing Customer" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Bureau data . CreditScore</text>
 				</literalExpression>
-				<parameter href="#postBureauCreditScore_ii" />
+				<parameter name="Credit Score" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Application risk score</text>
 				</literalExpression>
-				<parameter href="#postBureauApplicationRiskScore_ii" />
+				<parameter name="￼Application Risk Score" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1374,25 +1382,25 @@
 				<literalExpression>
 					<text>Bureau data . Bankrupt</text>
 				</literalExpression>
-				<parameter href="#routingRulesBankrupt_ii" />
+				<parameter name="Bankrupt" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Bureau data . CreditScore</text>
 				</literalExpression>
-				<parameter href="#routingRulesCreditScore_ii" />
+				<parameter name="Credit Score" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Post-bureau risk category</text>
 				</literalExpression>
-				<parameter href="#routingRulesPostBureauRiskCategory_ii" />
+				<parameter name="￼Post-Bureau Risk Category" />
 			</binding>
 			<binding>
 				<literalExpression>
 					<text>Post-bureau affordability</text>
 				</literalExpression>
-				<parameter href="#routingRulesPostBureauAffordability_ii" />
+				<parameter name="Post-Bureau Affordability" />
 			</binding>
 		</invocation>
 	</decision>
