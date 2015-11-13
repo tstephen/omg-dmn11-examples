@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions namespace="http://www.omg.org/spec/DMN/examples/201xyyzz"
+<definitions namespace="http://www.omg.org/spec/DMN/examples/20151101/ch11example"
+	xmlns:ex="http://www.omg.org/spec/DMN/examples/20151101/ch11example"
 	name="Loan Origination Decision Model" id="LoanOriginationModel"
-	xmlns="http://www.omg.org/spec/DMN/20130901">
+	xmlns="http://www.omg.org/spec/DMN/20151101/dmn11.xsd">
 	<description>Implements model from chapter 11 of DMN 1.1 spec
 	</description>
 	<itemDefinition name="Applicant data" id="applicantData_t">
@@ -88,20 +89,19 @@
 		<typeRef xmlns:ns2="http://www.omg.org/spec/FEEL/20140401">ns2:number</typeRef>
 	</itemDefinition>
 	<inputData name="Applicant data" id="applicantData_id">
-		<variable typeRef="ns2:ApplicantData" name="Applicant data"
-			id="applicantId_ii" xmlns:ns2="http://www.omg.org/spec/DMN/examples/201xyyzz" />
+		<variable typeRef="ex:ApplicantData" name="Applicant data"
+			id="applicantId_ii" />
 	</inputData>
 	<inputData name="Requested product" id="requestedProduct_id">
-		<variable typeRef="ns2:RequestedProduct" name="Requested product"
-			id="requestedProduct_ii" xmlns:ns2="http://www.omg.org/spec/DMN/examples/201xyyzz" />
+		<variable typeRef="ex:RequestedProduct" name="Requested product"
+			id="requestedProduct_ii" />
 	</inputData>
 	<inputData name="Supporting documents" id="supportingDocuments_id">
-		<variable typeRef="ns2:SupportingDocs" name="Supporting documents"
-			id="supportingDocuments_ii" xmlns:ns2="http://www.omg.org/spec/DMN/examples/201xyyzz" />
+		<variable typeRef="ex:SupportingDocs" name="Supporting documents"
+			id="supportingDocuments_ii" />
 	</inputData>
 	<inputData name="Bureau data" id="bureauData_id">
-		<variable typeRef="ns2:BureauData" name="Bureau data" id="bureauData_ii"
-			xmlns:ns2="http://www.omg.org/spec/DMN/examples/201xyyzz" />
+		<variable typeRef="ex:BureauData" name="Bureau data" id="bureauData_ii" />
 	</inputData>
 	<knowledgeSource name="Risk Manager" id="riskManager_ks" />
 	<knowledgeSource name="Analytics" id="analytics_ks" />
@@ -461,8 +461,7 @@
 	<businessKnowledgeModel name="Credit contingency factor table"
 		id="creditContingencyFactorTable_bkm">
 		<encapsulatedLogic>
-			<formalParameter typeRef="ns2:RiskCategory" name="Risk Category"
-				xmlns:ns2="http://www.omg.org/spec/DMN/examples/201xyyzz" />
+			<formalParameter typeRef="ex:RiskCategory" name="Risk Category" />
 			<decisionTable hitPolicy="UNIQUE" id="creditContingencyFactor_dt">
 				<input>
 					<inputExpression>
@@ -527,7 +526,9 @@
 				<contextEntry>
 					<variable name="Credit Contingency Factor" />
 					<invocation>
-						<calledFunction>creditContingencyFactor_dt</calledFunction>
+						<calledFunction>(Monthly Income, Monthly Repayments, Monthly
+							Expenses, Risk Category, Required Monthly Installment)
+						</calledFunction>
 						<binding>
 							<literalExpression>
 								<text>Risk Category</text>
@@ -1041,7 +1042,7 @@
 			<requiredKnowledge href="#bureauCallTypeTable_bkm" />
 		</knowledgeRequirement>
 		<invocation>
-			<calledFunction>bureauCallTypeTable_bkm</calledFunction>
+			<calledFunction>Bureau call type table</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>Pre-Bureau Risk Category</text>
@@ -1129,7 +1130,7 @@
 			<requiredKnowledge href="#eligibilityRules_bkm" />
 		</knowledgeRequirement>
 		<invocation>
-			<calledFunction>eligibilityRules_bkm</calledFunction>
+			<calledFunction>Eligibility rules</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>ApplicantData.Age</text>
@@ -1161,7 +1162,7 @@
 			<requiredKnowledge href="#preBureauRiskCategoryTable_bkm" />
 		</knowledgeRequirement>
 		<invocation>
-			<calledFunction>applicationRiskScoreModel_dt</calledFunction>
+			<calledFunction>Pre-bureau risk category table</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . Age</text>
@@ -1187,7 +1188,7 @@
 			<requiredKnowledge href="#applicationRiskScoreModel_bkm" />
 		</knowledgeRequirement>
 		<invocation>
-			<calledFunction>_76_dt</calledFunction>
+			<calledFunction>Application risk score model</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . Age</text>
@@ -1222,7 +1223,7 @@
 			<requiredKnowledge href="#AffordabilityCalculation_bkm" />
 		</knowledgeRequirement>
 		<invocation>
-			<calledFunction>AffordabilityCalculation_bkm</calledFunction>
+			<calledFunction>Affordability calculation</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . Monthly . Income</text>
@@ -1260,7 +1261,7 @@
 			<requiredKnowledge href="#AffordabilityCalculation_bkm" />
 		</knowledgeRequirement>
 		<invocation>
-			<calledFunction>AffordabilityCalculation_bkm</calledFunction>
+			<calledFunction>Affordability calculation</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . Monthly . Income</text>
@@ -1342,7 +1343,7 @@
 			<requiredAuthority href="#riskManager_ks" />
 		</authorityRequirement>
 		<invocation>
-			<calledFunction>postBureauRiskCategory_dt</calledFunction>
+			<calledFunction>Post-bureau risk category table</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>Applicant data . ExistingCustomer</text>
@@ -1377,7 +1378,7 @@
 			<requiredAuthority href="#routingRules_bkm" />
 		</authorityRequirement>
 		<invocation>
-			<calledFunction>routingRules_bkm</calledFunction>
+			<calledFunction>Routing rules</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>Bureau data . Bankrupt</text>
