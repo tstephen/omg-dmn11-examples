@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions namespace="http://www.omg.org/spec/DMN/examples/20151101/ch11example"
-	xmlns:ex="http://www.omg.org/spec/DMN/examples/20151101/ch11example"
 	name="Loan Origination Decision Model" id="LoanOriginationModel"
 	xmlns="http://www.omg.org/spec/DMN/20151101/dmn11.xsd">
 	<description>Implements model from chapter 11 of DMN 1.1 spec
@@ -90,18 +89,19 @@
 	</itemDefinition>
 	<inputData name="Applicant data" id="applicantData_id">
 		<variable typeRef="ex:ApplicantData" name="Applicant data"
-			id="applicantId_ii" />
+			id="applicantId_ii" xmlns:ex="http://www.omg.org/spec/DMN/examples/20151101/ch11example" />
 	</inputData>
 	<inputData name="Requested product" id="requestedProduct_id">
 		<variable typeRef="ex:RequestedProduct" name="Requested product"
-			id="requestedProduct_ii" />
+			id="requestedProduct_ii" xmlns:ex="http://www.omg.org/spec/DMN/examples/20151101/ch11example" />
 	</inputData>
 	<inputData name="Supporting documents" id="supportingDocuments_id">
 		<variable typeRef="ex:SupportingDocs" name="Supporting documents"
-			id="supportingDocuments_ii" />
+			id="supportingDocuments_ii" xmlns:ex="http://www.omg.org/spec/DMN/examples/20151101/ch11example" />
 	</inputData>
 	<inputData name="Bureau data" id="bureauData_id">
-		<variable typeRef="ex:BureauData" name="Bureau data" id="bureauData_ii" />
+		<variable typeRef="ex:BureauData" name="Bureau data" id="bureauData_ii"
+			xmlns:ex="http://www.omg.org/spec/DMN/examples/20151101/ch11example" />
 	</inputData>
 	<knowledgeSource name="Risk Manager" id="riskManager_ks" />
 	<knowledgeSource name="Analytics" id="analytics_ks" />
@@ -115,9 +115,9 @@
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row"
 				id="_72_dt">
-				<input id="_72PreBureauRiskCategory" label="Pre-Bureau Risk Category">
+				<input label="Pre-Bureau Risk Category">
 					<inputExpression>
-						<text>_72PreBureauRiskCategory</text>
+						<text>Pre-Bureau Risk Category</text>
 					</inputExpression>
 				</input>
 				<output name="Bureau Call Type" />
@@ -126,15 +126,15 @@
 						<text>"HIGH","MEDIUM"</text>
 					</inputEntry>
 					<outputEntry>
-						<text>FULL</text>
+						<text>"FULL"</text>
 					</outputEntry>
 				</rule>
 				<rule>
 					<inputEntry>
-						<text>LOW</text>
+						<text>"LOW"</text>
 					</inputEntry>
 					<outputEntry>
-						<text>MINI</text>
+						<text>"MINI"</text>
 					</outputEntry>
 				</rule>
 				<rule>
@@ -142,7 +142,7 @@
 						<text>"VERY LOW","DECLINE"</text>
 					</inputEntry>
 					<outputEntry>
-						<text>NONE</text>
+						<text>"NONE"</text>
 					</outputEntry>
 				</rule>
 			</decisionTable>
@@ -160,12 +160,12 @@
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row"
 				id="_76_dt">
-				<input id="Existing_Customer" label="Existing Customer">
+				<input label="Existing Customer">
 					<inputExpression>
 						<text>Existing Customer</text>
 					</inputExpression>
 				</input>
-				<input id="Application_Risk_Score" label="Application Risk Score">
+				<input label="Application Risk Score">
 					<inputExpression>
 						<text>Application Risk Score</text>
 					</inputExpression>
@@ -461,8 +461,10 @@
 	<businessKnowledgeModel name="Credit contingency factor table"
 		id="creditContingencyFactorTable_bkm">
 		<encapsulatedLogic>
-			<formalParameter typeRef="ex:RiskCategory" name="Risk Category" />
-			<decisionTable hitPolicy="UNIQUE" id="creditContingencyFactor_dt">
+			<formalParameter typeRef="ex:RiskCategory" name="Risk Category"
+				xmlns:ex="http://www.omg.org/spec/DMN/examples/20151101/ch11example" />
+			<decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row"
+				id="creditContingencyFactor_dt">
 				<input>
 					<inputExpression>
 						<text>Risk Category</text>
@@ -526,9 +528,7 @@
 				<contextEntry>
 					<variable name="Credit Contingency Factor" />
 					<invocation>
-						<calledFunction>(Monthly Income, Monthly Repayments, Monthly
-							Expenses, Risk Category, Required Monthly Installment)
-						</calledFunction>
+						<calledFunction>Credit contingency factor table</calledFunction>
 						<binding>
 							<literalExpression>
 								<text>Risk Category</text>
@@ -563,25 +563,25 @@
 	<businessKnowledgeModel name="Eligibility rules"
 		id="eligibilityRules_bkm">
 		<encapsulatedLogic>
-			<formalParameter typeRef="ns2:number" name="Pre-bureau affordability"
+			<formalParameter typeRef="ns2:number" name="Pre-Bureau Affordability"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<formalParameter typeRef="ns2:string" name="Pre-Bureau Risk Category"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="Applicant data.Age"
+			<formalParameter typeRef="ns2:number" name="Age"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<decisionTable hitPolicy="PRIORITY"
 				preferredOrientation="Rule-as-Row" id="_74_dt">
-				<input id="Pre_Bureau_Risk_Category" label="Pre-Bureau Risk Category">
+				<input label="Pre-Bureau Risk Category">
 					<inputExpression>
 						<text>Pre-Bureau Risk Category</text>
 					</inputExpression>
 				</input>
-				<input id="Pre_Bureau_Affordability" label="Pre-Bureau Affordability">
+				<input label="Pre-Bureau Affordability">
 					<inputExpression>
 						<text>Pre-Bureau Affordability</text>
 					</inputExpression>
 				</input>
-				<input id="Age" label="Age">
+				<input label="Age">
 					<inputExpression>
 						<text>Age</text>
 					</inputExpression>
@@ -653,7 +653,7 @@
 		<encapsulatedLogic>
 			<formalParameter typeRef="ns2:boolean" name="Bankrupt"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
-			<formalParameter typeRef="ns2:number" name="Crdit Score"
+			<formalParameter typeRef="ns2:number" name="Credit Score"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
 			<formalParameter typeRef="ns2:number" name="Post-Bureau Risk Category"
 				xmlns:ns2="http://www.omg.org/spec/FEEL/20140401" />
@@ -793,8 +793,7 @@
 					<variable name="Monthly Fee" />
 					<literalExpression>
 						<text>if Product Type = "STANDARD LOAN" then 20.00
-							else if Product
-							Type = "SPECIAL LOAN" then 25.00
+							else if Product Type = "SPECIAL LOAN" then 25.00
 							else null
 						</text>
 					</literalExpression>
@@ -1054,8 +1053,7 @@
 	<decision name="Strategy" id="_70_d">
 		<description>The Strategy decision logic (Figure 70) defines a
 			complete, unique-hit decision table deriving Strategy from
-			Eligibility and Bureau Call Type.
-		</description>
+			Eligibility and Bureau Call Type.</description>
 		<question>Is credit bureau call required?</question>
 		<allowedAnswers>Yes: Bureau; No: Decline or Through</allowedAnswers>
 		<informationRequirement>
@@ -1066,12 +1064,12 @@
 		</informationRequirement>
 		<decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row"
 			id="_70_dt">
-			<input id="eligibility" label="Eligibility">
+			<input label="Eligibility">
 				<inputExpression>
 					<text>eligibility</text>
 				</inputExpression>
 			</input>
-			<input id="bureauCallType" label="Bureau Call Type">
+			<input label="Bureau Call Type">
 				<inputExpression>
 					<text>bureauCallType</text>
 				</inputExpression>
@@ -1133,9 +1131,9 @@
 			<calledFunction>Eligibility rules</calledFunction>
 			<binding>
 				<literalExpression>
-					<text>ApplicantData.Age</text>
+					<text>Applicant data.Age</text>
 				</literalExpression>
-				<parameter name="Applicant data.Age" />
+				<parameter name="Age" />
 			</binding>
 			<binding>
 				<literalExpression>
@@ -1147,7 +1145,7 @@
 				<literalExpression>
 					<text>Pre-bureau affordability</text>
 				</literalExpression>
-				<parameter name="Pre-bureau affordability" />
+				<parameter name="Pre-Bureau Affordability" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1165,21 +1163,15 @@
 			<calledFunction>Pre-bureau risk category table</calledFunction>
 			<binding>
 				<literalExpression>
-					<text>Applicant data . Age</text>
+					<text>Applicant data . ExistingCustomer</text>
 				</literalExpression>
-				<parameter name="Age" />
+				<parameter name="Existing Customer" />
 			</binding>
 			<binding>
 				<literalExpression>
-					<text>Applicant data . MaritalStatus</text>
+					<text>Application risk score</text>
 				</literalExpression>
-				<parameter name="MaritalStatus" />
-			</binding>
-			<binding>
-				<literalExpression>
-					<text>Applicant data . EmploymentStatus</text>
-				</literalExpression>
-				<parameter name="Employment Status" />
+				<parameter name="Application Risk Score" />
 			</binding>
 		</invocation>
 	</decision>
@@ -1302,7 +1294,7 @@
 			<requiredKnowledge href="#installmentCalculation_bkm" />
 		</knowledgeRequirement>
 		<invocation>
-			<calledFunction>Installment invocation</calledFunction>
+			<calledFunction>Installment calculation</calledFunction>
 			<binding>
 				<literalExpression>
 					<text>Requested product . ProductType</text>
